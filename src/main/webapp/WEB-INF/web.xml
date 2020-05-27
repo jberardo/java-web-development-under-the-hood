@@ -9,5 +9,12 @@
         The menu and online ordering system for Ricky's Restaurant
     </description>
 
-
+    <servlet>
+        <servlet-name>HelloWorldServlet</servlet-name>
+        <servlet-class>com.virtualpairprogrammers.servlets.HelloWorldServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HelloWorldServlet</servlet-name>
+        <url-pattern>/hey.html</url-pattern>
+    </servlet-mapping>
 </web-app> 

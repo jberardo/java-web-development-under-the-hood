@@ -20,8 +20,8 @@
 	</properties>
 
 	<build>
+		<finalName>mymavenwebapp</finalName>
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -57,40 +57,48 @@
 	</build>
 
 	<dependencies>
-		<!-- Embedded tomcat -->
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-core</artifactId>
-			<version>${tomcat.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-logging-juli</artifactId>
-			<version>${tomcat.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<version>${tomcat.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jasper</artifactId>
-			<version>${tomcat.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jasper-el</artifactId>
-			<version>${tomcat.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jsp-api</artifactId>
-			<version>${tomcat.version}</version>
-		</dependency>
-
 		<!-- Servlet api and dependencies -->
-
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+		</dependency>
 
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>joca</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>3.2.3</version>
+						<configuration>
+							<outputDirectory>${user.home}/Applications/wildfly-17.0.1.Final/standalone/deployments</outputDirectory>
+							<webResources>
+								<resource>
+									<directory>${build.sourceDirectory}</directory>
+									<targetPath>sources</targetPath>
+								</resource>
+								<resource>
+									<directory>${build.testSourceDirectory}</directory>
+									<targetPath>tests</targetPath>
+								</resource>
+							</webResources>
+						</configuration>
+						<executions>
+							<execution>
+								<id>war</id>
+								<goals>
+									<goal>war</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
